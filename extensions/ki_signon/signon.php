@@ -102,13 +102,15 @@
     </head>
     <body>		
 		<div class = "contentDiv">
-			<table style = "width:100%">
-				<tr>
-					<th style="width:75%">Name</th>
-					<th class="shrink">In</th>
-					<th class="shrink">Out</th>
-					<th style="width:15%">Date</th>
-				</tr>
+			<ul>
+				<li>
+					<ul id="topRow">
+						<li>Name</li>
+						<li>In</li>
+						<li>Out</li>
+						<li>Date</li>
+					</ul>
+				</li>
 				
 	<?php
 	include("database.php");
@@ -120,8 +122,9 @@
 	$today = time() + 34200;
 	$humanDate = new DateTime("@$today");
 	$convertToDayMonth = $humanDate->format('Y-m-d');
-	echo ($convertToDayMonth);
+	//echo ($convertToDayMonth);
 	$epochToday = strtotime($convertToDayMonth);
+	
 	
 	// Hard coded test case
 	$customerID = 2;
@@ -148,23 +151,22 @@
 			$start = new DateTime("@$epochStart");
 			$stop = new DateTime("@$epochEnd");
 			
-			echo ("<tr><td>" . $nameResult["name"] . "</td>"
-			. "<td>" . $start->format('H:i') . "</td>");
+			echo ("<li><ul><li>" . $nameResult["name"] . "</li>"
+			. "<li>" . $start->format('H:i') . "</li>");
 			
 			if ($row["end"] > 0){
-				echo ("<td>" . $stop->format('H:i') . "</td>");
+				echo ("<li>" . $stop->format('H:i') . "</li>");
 			} else {
-				echo ("<td><form><input name=\"" . $row["timeEntryID"] . "\" type=submit id=\"button1\" value=\"Sign Out\" style=\"width:100%\" onclick=\"setendtime(" . $row["timeEntryID"] . ", " . $row["start"] . ")\"></form></td>");
+				echo ("<li><form><input name=\"" . $row["timeEntryID"] . "\" type=submit class=\"button\" value=\"Sign Out\" style=\"width:100%\" onclick=\"setendtime(" . $row["timeEntryID"] . ", " . $row["start"] . ")\"></form></li>");
 			}
-			echo ("<td>" . $start->format('d-m') . "</td></tr>");
+			echo ("<li>" . $start->format('d-m') . "</li></ul></li>");
 		}
 	}
 	?>
-				</tr>
-				<tr>
-					<td colspan="4"><a name="signin" id="button2" style="width:100%" href="#popup1"><p>Sign In</p></a></td>
-				</tr>
-			</table>					
+				
+			<div>
+				<a name="signin" id="button2" style="width:100%" href="#popup1"><p>Sign In</p></a>
+			</div>					
 			
 			<!--<form><input name="debug" type=submit value="Debug" id="button1" style="width:100%" onclick="debugs(1)"></form></td> -->
 			
